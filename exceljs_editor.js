@@ -1,22 +1,9 @@
 (function () {
 
+    var csvHelper = require('./csvHelper.js');
     var VendorReportObj = require('./VendorReportObject.js');
     var Excel = require("./node_modules/exceljs/excel.js");
     var workbook = new Excel.Workbook();
-
-    workbook.xlsx.readFile("./excelData/vendor_reporting_09_18.xlsx")
-        .then(function () {
-            var worksheet = workbook.getWorksheet(2);
-
-            console.log(getRowData(worksheet, 12));
-
-            var vendorObj = new VendorReportObj(22, 9, 2015, 34, "Mayflower", "Iuliia", "Snezhzha", "MVS", "Data Exports", 8, 10, 0, "");
-            vendorObj.calculateCosts(worksheet.getCell('L1').value, worksheet.getCell('K1').value);
-            addNewRow(worksheet, vendorObj);
-            workbook.xlsx.writeFile("./excelData/vendor_reporting_09_18_edited.xlsx");
-            console.log(getRowData(worksheet, 100));
-        });
-
 
     var getRowData = function getRowData(worksheet, rowNumber) {
         var row = worksheet.getRow(rowNumber);
@@ -36,8 +23,37 @@
         }
         worksheet.addRow(cells);
     };
-})();
 
+    var readDataFromCsvFileAndWriteToXlsx = function readDataFromCsvFileAndWriteToXlsx(pathCsv, pathXlsx) {
+        var arr = [];
+        var p = workbook.csv.readFile(pathCsv)
+            .then(function(worksheet) {
+                worksheet.eachRow(function(row, rowNumber) {
+                    if(rowNumber !== 1) {
+                        csvHelper.addRowToArray(row.values, arr);
+                    }
+                });
+                arr = csvHelper.convertReceivedDataToObjectsArr(arr);
+            }).then( function() {
+                writeXlsxFile(arr, pathXlsx);
+            });
+    };
+
+    var writeXlsxFile = function writeXlsxFile(readData, path) {
+        workbook.xlsx.readFile(path)
+            .then(function () {
+                var worksheet = workbook.getWorksheet(2);
+                for (var i = 0; i < readData.length; i++) {
+                    readData[i].calculateCosts(worksheet.getCell("L1").value, worksheet.getCell("K1").value);
+                    addNewRow(worksheet, readData[i]);
+                }
+                workbook.xlsx.writeFile("./excelData/ven_rep_exceljs_editor.xlsx");
+            });
+    };
+
+    /** ENTRY POINT */
+    readDataFromCsvFileAndWriteToXlsx('./excelData/project_stat.csv', './excelData/vendor_reporting_09_18.xlsx');
+})();
 
 
 

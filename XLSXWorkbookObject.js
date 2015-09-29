@@ -103,4 +103,8 @@ XLSXWorkbookObj.prototype.writeWorkbookToTheFile = function (adress) {
     this.XLSX.writeFile(this.workbook, adress);
 };
 
+XLSXWorkbookObj.prototype.increaseWorksheetRange = function (extraRange) {
+    this.worksheet['!ref'] = "A1:M" + (this.getLastRowNumber() + extraRange);
+};
+
 module.exports = XLSXWorkbookObj;
