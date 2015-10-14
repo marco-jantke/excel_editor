@@ -35,4 +35,8 @@ var main = function main(csvFileToRead, xlsxFileToRead) {
 };
 
 /** THIS IS ENTRY POINT*/
-main('./excelData/project_stat.csv', './excelData/vendor_reporting_09_18.xlsx');
+var paths = csvHelper.getPathsFromUser();
+main(paths.csvFilePath, paths.xlsxFilePath);
+
+//./excelData/project_stat.csv
+//./excelData/vendor_reporting_09_18.xlsx

@@ -50,7 +50,8 @@ var writeXlsxFile = function writeXlsxFile(readData, path) {
 };
 
 /** ENTRY POINT */
-readDataFromCsvFileAndWriteToXlsx('./excelData/project_stat.csv', './excelData/vendor_reporting_09_18.xlsx');
+var paths = csvHelper.getPathsFromUser();
+readDataFromCsvFileAndWriteToXlsx(paths.csvFilePath, paths.xlsxFilePath);
 
-
-
+//./excelData/project_stat.csv
+//./excelData/vendor_reporting_09_18.xlsx

@@ -1,4 +1,6 @@
 var VendorReportObj = require('./VendorReportObject.js');
+/** Reads a line from the standard input synchronously if no callback is specified, otherwise reads it asynchronously. */
+var sget = require('sget');
 
 module.exports.addRowToArray = function addRowToArray(row, resArray) {
     var rowStr = JSON.stringify(row);
@@ -28,4 +30,14 @@ module.exports.convertReceivedDataToObjectsArr = function convertReceivedDataToO
         objArr.push(vendorObj);
     }
     return objArr;
+};
+module.exports.getPathsFromUser = function getPathsFromUser() {
+    var paths = {};
+    console.log("=============================================================\n");
+    paths.csvFilePath = sget("Enter path to .csv file you want to read: ");
+    paths.csvFilePath = paths.csvFilePath.trim();
+    console.log("=============================================================\n");
+    paths.xlsxFilePath = sget("Enter path to .xlsx file you want to edit: ");
+    paths.xlsxFilePath = paths.xlsxFilePath.trim();
+    return paths;
 };
