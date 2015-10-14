@@ -44,7 +44,7 @@
             .then(function () {
                 var worksheet = workbook.getWorksheet(2);
                 for (var i = 0; i < readData.length; i++) {
-                    readData[i].calculateCosts(worksheet.getCell("L1").value, worksheet.getCell("K1").value);
+                    readData[i].setCostsByHourPrice(worksheet.getCell("L1").value, worksheet.getCell("K1").value);
                     addNewRow(worksheet, readData[i]);
                 }
                 workbook.xlsx.writeFile("./excelData/ven_rep_exceljs_editor.xlsx");

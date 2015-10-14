@@ -44,7 +44,7 @@ XLSXWorkbookObj.prototype.assignCellValue = function (value, col, row) {
 };
 
 XLSXWorkbookObj.prototype.assignCellValueWithFormula = function (col, row, formula, value) {
-    this.worksheet[this.getCellReference(col, row)] = {t: 'n', v: value, f: formula, w: value.toString() + ' ˆ'};
+    this.worksheet[this.getCellReference(col, row)] = {t: 'n', v: value, f: formula, w: value.toString() + ' ï¿½'};
 };
 
 XLSXWorkbookObj.prototype.addNewObjectsToTheWorksheet = function (objects, headers) {
@@ -90,7 +90,7 @@ XLSXWorkbookObj.prototype.addNewObjectsToTheWorksheet = function (objects, heade
                 this.assignCellValue(objects[i].getMinutes(), col, row);
                 continue;
             } else if (headers[j] === "Costs") {
-                objects[i].calculateCosts(this.getCell(11, 0).v, this.getCell(10, 0).v);
+                objects[i].setCostsByHourPrice(this.getCell(11, 0).v, this.getCell(10, 0).v);
                 this.assignCellValueWithFormula(col, row, cellRefHours + '*$L$1+(' + cellRefMinutes + '/$K$1)*$L$1',
                     objects[i].getCosts());
                 continue;

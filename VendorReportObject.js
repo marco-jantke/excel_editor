@@ -54,9 +54,9 @@ VendorReportObj.prototype.getCosts = function () {
 VendorReportObj.prototype.getComments = function () {
     return this.comments;
 };
-VendorReportObj.prototype.calculateCosts = function (constVar1, constVar2) {
-    this.costs = Math.round(this.Hours * constVar1 +
-        (this.Minutes / constVar2) * constVar1);
+VendorReportObj.prototype.setCostsByHourPrice = function (hourPrice, minutesConst) {
+    this.costs = Math.round(this.Hours * hourPrice +
+        (this.Minutes / minutesConst) * hourPrice);
 };
 
 module.exports = VendorReportObj;
