@@ -54,34 +54,47 @@ XLSXWorkbookObj.prototype.addNewObjectsToTheWorksheet = function (objects, heade
 
     for (var i = 0; i < objects.length; i++, row++) {
         for (var j = 0, col = 0; j < headers.length; j++, col++) {
-            if (headers[j] === "Day") {
-                this.assignCellValue(objects[i].getDay(), col, row);
-            } else if (headers[j] === "Month") {
-                this.assignCellValue(objects[i].getMonth(), col, row);
-            } else if (headers[j] === "Year") {
-                this.assignCellValue(objects[i].getYear(), col, row);
-            } else if (headers[j] === "Calendar Week") {
-                this.assignCellValue(objects[i].getCalendarWeek(), col, row);
-            } else if (headers[j] === "Vendor") {
-                this.assignCellValue(objects[i].getVendor(), col, row);
-            } else if (headers[j].toLowerCase() === "dev. first name") {
-                this.assignCellValue(objects[i].getDevFirstName(), col, row);
-            } else if (headers[j].toLowerCase() === "dev. last name") {
-                this.assignCellValue(objects[i].getDevLastName(), col, row);
-            } else if (headers[j] === "Project") {
-                this.assignCellValue(objects[i].getProject(), col, row);
-            } else if (headers[j] === "Topic") {
-                this.assignCellValue(objects[i].getTopic(), col, row);
-            } else if (headers[j] === "Hours") {
-                cellRefHours = this.getCellReference(col, row);
-                this.assignCellValue(objects[i].getHours(), col, row);
-            } else if (headers[j] === "Minutes") {
-                cellRefMinutes = this.getCellReference(col, row);
-                this.assignCellValue(objects[i].getMinutes(), col, row);
-            } else if (headers[j] === "Costs") {
-                objects[i].setCostsByHourPrice(this.getCell(11, 0).v, this.getCell(10, 0).v);
-                this.assignCellValueWithFormula(col, row, cellRefHours + '*$L$1+(' + cellRefMinutes + '/$K$1)*$L$1',
-                    objects[i].getCosts());
+            switch (headers[j]) {
+                case "Day":
+                    this.assignCellValue(objects[i].getDay(), col, row);
+                    break;
+                case "Month":
+                    this.assignCellValue(objects[i].getMonth(), col, row);
+                    break;
+                case "Year":
+                    this.assignCellValue(objects[i].getYear(), col, row);
+                    break;
+                case "Calendar Week":
+                    this.assignCellValue(objects[i].getCalendarWeek(), col, row);
+                    break;
+                case "Vendor":
+                    this.assignCellValue(objects[i].getVendor(), col, row);
+                    break;
+                case "dev. first name":
+                    this.assignCellValue(objects[i].getDevFirstName(), col, row);
+                    break;
+                case  "dev. last name":
+                    this.assignCellValue(objects[i].getDevLastName(), col, row);
+                    break;
+                case "Project":
+                    this.assignCellValue(objects[i].getProject(), col, row);
+                    break;
+                case "Topic":
+                    this.assignCellValue(objects[i].getTopic(), col, row);
+                    break;
+                case "Hours":
+                    cellRefHours = this.getCellReference(col, row);
+                    this.assignCellValue(objects[i].getHours(), col, row);
+                    break;
+                case "Minutes":
+                    cellRefMinutes = this.getCellReference(col, row);
+                    this.assignCellValue(objects[i].getMinutes(), col, row);
+                    break;
+                case "Costs":
+                    objects[i].setCostsByHourPrice(this.getCell(11, 0).v, this.getCell(10, 0).v);
+                    this.assignCellValueWithFormula(col, row, cellRefHours + '*$L$1+(' + cellRefMinutes + '/$K$1)*$L$1',
+                                                    objects[i].getCosts());
+                    break;
             }
         }
     }
