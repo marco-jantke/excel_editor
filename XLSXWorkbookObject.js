@@ -1,7 +1,7 @@
-function XLSXWorkbookObj(adress, sheetNumber) {
+function XLSXWorkbookObj(path, sheetNumber) {
     this.XLSX = require('xlsx');
-    this.workbook = this.XLSX.readFile(adress);
-    var sheetName = this.workbook.SheetNames[1];
+    this.workbook = this.XLSX.readFile(path);
+    var sheetName = this.workbook.SheetNames[sheetNumber];
     this.worksheet = this.workbook.Sheets[sheetName];
 }
 XLSXWorkbookObj.prototype.getWorksheet = function() {
@@ -56,44 +56,32 @@ XLSXWorkbookObj.prototype.addNewObjectsToTheWorksheet = function (objects, heade
         for (var j = 0, col = 0; j < headers.length; j++, col++) {
             if (headers[j] === "Day") {
                 this.assignCellValue(objects[i].getDay(), col, row);
-                continue;
             } else if (headers[j] === "Month") {
                 this.assignCellValue(objects[i].getMonth(), col, row);
-                continue;
             } else if (headers[j] === "Year") {
                 this.assignCellValue(objects[i].getYear(), col, row);
-                continue;
             } else if (headers[j] === "Calendar Week") {
                 this.assignCellValue(objects[i].getCalendarWeek(), col, row);
-                continue;
             } else if (headers[j] === "Vendor") {
                 this.assignCellValue(objects[i].getVendor(), col, row);
-                continue;
             } else if (headers[j].toLowerCase() === "dev. first name") {
                 this.assignCellValue(objects[i].getDevFirstName(), col, row);
-                continue;
             } else if (headers[j].toLowerCase() === "dev. last name") {
                 this.assignCellValue(objects[i].getDevLastName(), col, row);
-                continue;
             } else if (headers[j] === "Project") {
                 this.assignCellValue(objects[i].getProject(), col, row);
-                continue;
             } else if (headers[j] === "Topic") {
                 this.assignCellValue(objects[i].getTopic(), col, row);
-                continue;
             } else if (headers[j] === "Hours") {
                 cellRefHours = this.getCellReference(col, row);
                 this.assignCellValue(objects[i].getHours(), col, row);
-                continue;
             } else if (headers[j] === "Minutes") {
                 cellRefMinutes = this.getCellReference(col, row);
                 this.assignCellValue(objects[i].getMinutes(), col, row);
-                continue;
             } else if (headers[j] === "Costs") {
                 objects[i].setCostsByHourPrice(this.getCell(11, 0).v, this.getCell(10, 0).v);
                 this.assignCellValueWithFormula(col, row, cellRefHours + '*$L$1+(' + cellRefMinutes + '/$K$1)*$L$1',
                     objects[i].getCosts());
-                continue;
             }
         }
     }
