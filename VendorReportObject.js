@@ -1,61 +1,61 @@
 function VendorReportObj(day, month, year, calendarWeek, vendor, devFirstName,
                          devLastName, project, topic, hours, minutes, costs, comments) {
-    this.Day = day;
-    this.Month = month;
-    this.Year = year;
-    this.CalendarWeek = calendarWeek;
-    this.Vendor = vendor;
-    this.DevFirstName = devFirstName;
-    this.DevLastName = devLastName;
-    this.Project = project;
-    this.Topic = topic;
-    this.Hours = hours;
-    this.Minutes = minutes;
-    this.Costs = costs;
-    this.Comments = comments;
+    this.day = day;
+    this.month = month;
+    this.year = year;
+    this.calendarWeek = calendarWeek;
+    this.vendor = vendor;
+    this.devFirstName = devFirstName;
+    this.devLastName = devLastName;
+    this.project = project;
+    this.topic = topic;
+    this.hours = hours;
+    this.minutes = minutes;
+    this.costs = costs;
+    this.comments = comments;
 }
 
 VendorReportObj.prototype.getDay = function () {
-    return this.Day;
+    return this.day;
 };
 VendorReportObj.prototype.getMonth = function () {
-    return this.Month;
+    return this.month;
 };
 VendorReportObj.prototype.getYear = function () {
-    return this.Year;
+    return this.year;
 };
 VendorReportObj.prototype.getCalendarWeek = function () {
-    return this.CalendarWeek;
+    return this.calendarWeek;
 };
 VendorReportObj.prototype.getVendor = function () {
-    return this.Vendor;
+    return this.vendor;
 };
 VendorReportObj.prototype.getDevFirstName = function () {
-    return this.DevFirstName;
+    return this.devFirstName;
 };
 VendorReportObj.prototype.getDevLastName = function () {
-    return this.DevLastName;
+    return this.devLastName;
 };
 VendorReportObj.prototype.getProject = function () {
-    return this.Project;
+    return this.project;
 };
 VendorReportObj.prototype.getTopic = function () {
-    return this.Topic;
+    return this.topic;
 };
 VendorReportObj.prototype.getHours = function () {
-    return this.Hours;
+    return this.hours;
 };
 VendorReportObj.prototype.getMinutes = function () {
-    return this.Minutes;
+    return this.minutes;
 };
 VendorReportObj.prototype.getCosts = function () {
-    return this.Costs;
+    return this.costs;
 };
 VendorReportObj.prototype.getComments = function () {
-    return this.Comments;
+    return this.comments;
 };
 VendorReportObj.prototype.calculateCosts = function (constVar1, constVar2) {
-    this.Costs = Math.round(this.Hours * constVar1 +
+    this.costs = Math.round(this.Hours * constVar1 +
         (this.Minutes / constVar2) * constVar1);
 };
 
