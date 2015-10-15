@@ -9,10 +9,20 @@ function addRowToArray(row, resArray) {
     resArray.push(rowStr.split(','));
 }
 
-Date.prototype.getWeek = function () {
-    var onejan = new Date(this.getFullYear(), 0, 1);
-    return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-};
+function getWeek(date) {
+    var target = new Date(date.valueOf()),
+        dayNumber = (date.getUTCDay() + 6) % 7,
+        firstThursday;
+
+    target.setUTCDate(target.getUTCDate() - dayNumber + 3);
+    firstThursday = target.valueOf();
+    target.setUTCMonth(0, 1);
+
+    if (target.getUTCDay() !== 4) {
+        target.setUTCMonth(0, 1 + ((4 - target.getUTCDay()) + 7) % 7);
+    }
+    return Math.ceil((firstThursday - target) /  (7 * 24 * 3600 * 1000)) + 1;
+}
 
 /** this function convert our readData array of arrays into array of VendorReportObjects and return it */
 function convertReceivedDataToObjectsArr(arr) {
@@ -24,7 +34,7 @@ function convertReceivedDataToObjectsArr(arr) {
         date = new Date(arr[i][2]);
         firstName = arr[i][0].split(" ")[0];
         lastName = arr[i][0].split(" ")[1];
-        var vendorObj = new VendorReportObj(date.getDate(), date.getMonth() + 1, date.getFullYear(), date.getWeek(),
+        var vendorObj = new VendorReportObj(date.getDate(), date.getMonth() + 1, date.getFullYear(), getWeek(date),
             "Mayflower", firstName, lastName, arr[i][1], arr[i][5], Number(arr[i][3]),
             Number(arr[i][4]), "", arr[i][6] ? arr[i][6] : "");
         objArr.push(vendorObj);
