@@ -2,12 +2,12 @@ var VendorReportObj = require('./VendorReportObject.js');
 /** Reads a line from the standard input synchronously if no callback is specified, otherwise reads it asynchronously. */
 var sget = require('sget');
 
-module.exports.addRowToArray = function addRowToArray(row, resArray) {
+function addRowToArray(row, resArray) {
     var rowStr = JSON.stringify(row);
     rowStr = rowStr.replace(/"",/g, "").replace(/null,/g, "").replace(/,"-"/g, "").replace(/"/g, "");
     rowStr = rowStr.substring(1, rowStr.length - 1);
     resArray.push(rowStr.split(','));
-};
+}
 
 Date.prototype.getWeek = function () {
     var onejan = new Date(this.getFullYear(), 0, 1);
@@ -15,7 +15,7 @@ Date.prototype.getWeek = function () {
 };
 
 /** this function convert our readData array of arrays into array of VendorReportObjects and return it */
-module.exports.convertReceivedDataToObjectsArr = function convertReceivedDataToObjectsArr(arr) {
+function convertReceivedDataToObjectsArr(arr) {
     var objArr = [];
     var date;
     var firstName;
@@ -30,8 +30,9 @@ module.exports.convertReceivedDataToObjectsArr = function convertReceivedDataToO
         objArr.push(vendorObj);
     }
     return objArr;
-};
-module.exports.getPathsFromUser = function getPathsFromUser() {
+}
+
+function getPathsFromUser() {
     var paths = {};
     console.log("=============================================================\n");
     paths.csvFilePath = sget("Enter path to .csv file you want to read: ");
@@ -40,4 +41,10 @@ module.exports.getPathsFromUser = function getPathsFromUser() {
     paths.xlsxFilePath = sget("Enter path to .xlsx file you want to edit: ");
     paths.xlsxFilePath = paths.xlsxFilePath.trim();
     return paths;
+}
+
+module.exports = {
+    addRowToArray: addRowToArray,
+    convertReceivedDataToObjectsArr: convertReceivedDataToObjectsArr,
+    getPathsFromUser: getPathsFromUser
 };
