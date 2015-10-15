@@ -23,11 +23,13 @@ var main = function main(csvFileToRead, xlsxFileToRead) {
             }
         })
         .on('end', function () {
+            console.log(pathCsv + " was successfully read!\n");
             var vendorRepObjects = csvHelper.convertReceivedDataToObjectsArr(readData);
             workbook.addNewObjectsToTheWorksheet(vendorRepObjects, workbook.getWorksheetHeaders());
             workbook.increaseWorksheetRange(vendorRepObjects.length);
             //console.log(workbook.getWorksheet());
             workbook.writeWorkbookToTheFile('./excelData/ven_rep_xlsx_editor.xlsx');
+            console.log(pathCsv + " was successfully edited!\n");
         })
         .on('error', function (error) {
             console.log(error.message);

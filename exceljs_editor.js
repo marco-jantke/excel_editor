@@ -33,6 +33,7 @@ var readDataFromCsvFileAndWriteToXlsx = function readDataFromCsvFileAndWriteToXl
             });
             arr = csvHelper.convertReceivedDataToObjectsArr(arr);
         }).then(function () {
+            console.log(pathCsv + " was successfully read!\n");
             writeXlsxFile(arr, pathXlsx);
         });
 };
@@ -46,6 +47,7 @@ var writeXlsxFile = function writeXlsxFile(readData, path) {
                 addNewRow(worksheet, readData[i]);
             }
             workbook.xlsx.writeFile("./excelData/ven_rep_exceljs_editor.xlsx");
+            console.log(pathCsv + " was successfully edited!\n");
         });
 };
 
