@@ -29,7 +29,7 @@ var main = function main(csvFileToRead, xlsxFileToRead) {
             workbook.increaseWorksheetRange(vendorRepObjects.length);
             //console.log(workbook.getWorksheet());
             workbook.writeWorkbookToTheFile('./excelData/ven_rep_xlsx_editor.xlsx');
-            console.log(pathCsv + " was successfully edited!\n");
+            console.log("Successfully writen ./excelData/ven_rep_xlsx_editor.xlsx file\n");
         })
         .on('error', function (error) {
             console.log(error.message);

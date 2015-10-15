@@ -47,7 +47,7 @@ var writeXlsxFile = function writeXlsxFile(readData, path) {
                 addNewRow(worksheet, readData[i]);
             }
             workbook.xlsx.writeFile("./excelData/ven_rep_exceljs_editor.xlsx");
-            console.log(pathCsv + " was successfully edited!\n");
+            console.log("Successfully writen ./excelData/ven_rep_exceljs_editor.xlsx file\n");
         });
 };
 
